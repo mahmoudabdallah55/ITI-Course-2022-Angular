@@ -1,0 +1,65 @@
+
+
+
+
+
+
+
+
+
+
+
+<div
+    class=""
+>
+    <table
+        class="table "
+    >
+        <thead>
+            <tr>
+                <th >id</th>
+                <th >name </th>
+                <th >price in $</th>
+                <th >price in Egp</th>
+                <th >qnatity</th>
+                <th >number of products</th>
+                <th >Buy</th>
+                <th >productImage</th>
+                
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of productsByCatId; let i  = index"  
+            
+            >
+                <td >No:  {{i+1 }}</td>
+                <td>{{product?.name | lowercase}}</td>
+                <td >{{product?.price | currency}}</td>
+                <td >{{product.price | fromUsdToEgp:5 |currency:"EGP" : "symbol"}}</td>
+                <td >
+                    <ng-container [ngSwitch]="product.quantity ">
+                        <div *ngSwitchCase="0">out OF Stock</div>
+                        <div *ngSwitchCase="1">last item in stock !</div>
+                        <div *ngSwitchCase="2">last two items in stock !</div>
+                        <div *ngSwitchDefault="">{{product.quantity}}</div>
+
+                    </ng-container>
+
+
+                </td>
+            
+                <!-- <ng-template #outOfStock>outOfStock</ng-template> -->
+                <td><input type="number" class="form-control" #productCont> </td>
+                <td><button class="btn btn-dark" (click)=" buy(product.price,productCont.value,product.quantity)">Buy</button></td>
+                
+                <td><img LightBox = "red"  [src]="product?.imgUrl" alt="product image"></td>
+            </tr>
+         
+        </tbody>
+    </table>
+<!-- 
+    <h2 class="text-danger">[to be removed this in child comp for testing ]</h2>
+    <h1 class="text-danger">totalProductPrice : <span>{{totalProductPrice}}</span> $</h1> -->
+</div>
+
