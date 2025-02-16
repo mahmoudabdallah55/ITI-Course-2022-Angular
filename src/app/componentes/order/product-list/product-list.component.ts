@@ -1,5 +1,5 @@
 // import { StaticProductListDataService } from '../../../services/static-product-list-data.service';
-import { Component, EventEmitter, Inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ICategory } from 'src/app/models/i-category';
 import { IProduct } from 'src/app/models/i-product';
 import { StaticProductListDataServiceService } from '../../../services/static-product-list-data-service.service';
@@ -9,7 +9,7 @@ import { StaticProductListDataServiceService } from '../../../services/static-pr
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnChanges {
+export class ProductListComponent implements OnChanges,OnInit {
   filteredArray:IProduct[]=[];
   productsByCatId:IProduct[]=[];
   // productList:IProduct[];
@@ -78,6 +78,12 @@ export class ProductListComponent implements OnChanges {
     this.productsByCatId = this.staticProductListDataService.getProductsByCatId(this.sentCatIdOfProducts)
   
   }
+  ngOnInit(): void {
+    this.productsByCatId = this.staticProductListDataService.getAllProducts();
+    
+    
+  }
+
 
 //  private filteredProductsArray() {
 //   if (this.sentCatIdOfProducts==0) {
@@ -118,7 +124,7 @@ export class ProductListComponent implements OnChanges {
   }
 
 
- 
+
 
 
   
